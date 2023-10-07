@@ -32,12 +32,13 @@ Both PC
 conda env create -f environment.yml
 conda activate fsdf
 ```
-```
-pip install -e .
-```
-3. **Install required dependencies**:
+
+3. **Install required dependencies in GPU PC**:
 ```
 pip install -r requirements.txt
+```
+```
+pip install -e .
 ```
 ## How to Run
 
