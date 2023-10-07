@@ -1,6 +1,11 @@
-# Project Title
+# Real-Time Signed Distance Function for Franka robot for Downstream Reactive Control Tasks
+This project aims to create a real-time system that reconstructs a Signed Distance Field (SDF) by training a neural network model using a continual learning approach for the Franka Emika robot. The model, represented by a Multi-Layer Perceptron (MLP), is trained in real-time using a stream of posed depth images and a self-supervised loss function. Our primary source of inspiration for this project is the paper titled "iSDF: Real-time Neural Signed Distance Fields for Robot Perception." However, adapting GPU-based algorithms for real robotics applications presents significant challenges. This challenge is amplified when dealing with robots like Franka, which operate in a real-time kernel environment where GPU usage is limited or prohibited.
 
-A brief description of what this project is about and its purpose.
+Achieving real-time performance on Franka, which operates at a frequency of 100 Hz, poses a substantial engineering hurdle. This is because our GPU-based algorithm can only achieve a maximum processing speed of 15 Hz. Consequently, it is crucial to meticulously coordinate and optimize the various components of the system to ensure that it meets the real-time requirements of the Franka robot while maintaining the accuracy and effectiveness of the neural SDF reconstruction. Below we provide detailed instructions for running it in your own lab/system.
+
+## Major References:
+- Real-Time Signed Distance Function Generator: https://github.com/facebookresearch/iSDF
+- Franka Interactive Controllers : https://github.com/penn-figueroa-lab/franka_interactive_controllers
 
 ## Table of Contents
 
@@ -9,26 +14,29 @@ A brief description of what this project is about and its purpose.
 - [How to Run](#how-to-run)
 - [Results](#results)
   - [Videos](#videos)
-  - [Franka Image](#franka-image)
-- [License](#license)
 - [Acknowledgments](#acknowledgments)
 
 ## Prerequisites
 
 Before you begin, ensure you have met the following requirements:
-
-- **Software**: [Software Name], [Library Name], etc.
-- **Hardware**: Master PC, Slave PC with GPU, etc.
-
+- **Hardware**: Master PC with real-time Linux kernel for Franka Emika robot, Slave PC with GPU for running real-time SDF generator, Franka Emika robot, Realsense Camera, Motion Capture Systems (OptiTrack).
+- **Software**: ROS, NVIDIA-CUDA installation, Franka Software Setup, Motion Capture System Software Setup.
 ## Setup and Installation
 
 1. **Clone the repository**:
 git clone [Repository URL]
 
-2. **Navigate to the project directory**:
-cd [Project Directory Name]
+2. **Setup Enviornment**:
+```
+conda env create -f environment.yml
+conda activate fsdf
+```
+```
+pip install -e .
+```
 3. **Install required dependencies**:
 pip install -r requirements.txt
+
 ## How to Run
 
 1. **Start the Master PC**:
