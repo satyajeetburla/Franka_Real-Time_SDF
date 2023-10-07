@@ -15,6 +15,7 @@ Achieving real-time performance on Franka, which operates at a frequency of 100 
     </td>
   </tr>
 </table>
+
 ## Major References:
 - Real-Time Signed Distance Function Generator: https://github.com/facebookresearch/iSDF
 - Franka Interactive Controllers : https://github.com/penn-figueroa-lab/franka_interactive_controllers
