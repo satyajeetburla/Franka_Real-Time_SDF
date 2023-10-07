@@ -1,0 +1,7 @@
+LICENSE
+README.md
+setup.py
+incSDF.egg-info/PKG-INFO
+incSDF.egg-info/SOURCES.txt
+incSDF.egg-info/dependency_links.txt
+incSDF.egg-info/top_level.txt
