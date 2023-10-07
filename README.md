@@ -2,7 +2,19 @@
 This project aims to create a real-time system that reconstructs a Signed Distance Field (SDF) by training a neural network model using a continual learning approach for the Franka Emika robot. The model, represented by a Multi-Layer Perceptron (MLP), is trained in real-time using a stream of posed depth images and a self-supervised loss function. Our primary source of inspiration for this project is the paper titled "iSDF: Real-time Neural Signed Distance Fields for Robot Perception." However, adapting GPU-based algorithms for real robotics applications presents significant challenges. This challenge is amplified when dealing with robots like Franka, which operate in a real-time kernel environment where GPU usage is limited or prohibited.
 
 Achieving real-time performance on Franka, which operates at a frequency of 100 Hz, poses a substantial engineering hurdle. This is because our GPU-based algorithm can only achieve a maximum processing speed of 15 Hz. Consequently, it is crucial to meticulously coordinate and optimize the various components of the system to ensure that it meets the real-time requirements of the Franka robot while maintaining the accuracy and effectiveness of the neural SDF reconstruction. Below we provide detailed instructions for running it in your own lab/system.
-
+<table>
+  <tr>
+    <td>
+      <img src="image/image1.jpg" width="200" alt="Image 1">
+    </td>
+    <td>
+      <img src="image/image2.webp" width="200" alt="Image 2">
+    </td>
+    <td>
+      <img src="image/image3.png" width="200" alt="Image 3">
+    </td>
+  </tr>
+</table>
 ## Major References:
 - Real-Time Signed Distance Function Generator: https://github.com/facebookresearch/iSDF
 - Franka Interactive Controllers : https://github.com/penn-figueroa-lab/franka_interactive_controllers
