@@ -26,7 +26,8 @@ Before you begin, ensure you have met the following requirements:
 1. **Clone the repository**:
 git clone [Repository URL]
 
-2. **Setup Enviornment**:
+2. **Setup Environment**:
+Both PC
 ```
 conda env create -f environment.yml
 conda activate fsdf
@@ -35,37 +36,80 @@ conda activate fsdf
 pip install -e .
 ```
 3. **Install required dependencies**:
+```
 pip install -r requirements.txt
-
+```
 ## How to Run
 
-1. **Start the Master PC**:
-python run_master.py
+We have to run two PC - A master PC running the real-time Linux kernel for the Franka Emika robot & Slave PC with GPU for running real-time SDF generator, both of them communicate with each other using ROS.
 
-markdown
-Copy code
+**Master PC -- In RT kernel**:
 
-2. **Start the Slave PC**:
-python run_slave.py
+1. Use the "catkin_ws" inside "Franka_SDF_catkin_ws_Franks_CPU" for the Master PC:
+``` 
+cd ~/catkin_ws
+source devel/setup.bash
+catkin_make
+```
+It will install the Franka interactive controller, optitrack setup and other requirements.
 
-bash
-Copy code
+2. Install driver for Realsense camera:
+```
+sudo apt-get install ros-$ROS_DISTRO-realsense2-camera
+```
+3. Launch the camera:
+```
+roslaunch realsense2_camera rs_camera.launch color_width:=1280 color_height:=720 color_fps:=30 depth_width:=1280 depth_height:=720 depth_fps:=30 enable_sync:=true align_depth:=true
+```
+4. Setup RoS communication:
+```
+export ROS_MASTER_URI=http://"master pc ip":11311
+export ROS_IP="master pc IP"
+```
+5. Main Robot Launch:
+To bring up the standalone robot with franka_ros without any specific controller (useful for testing -- can be included in your custom launch file):
+```
+roslaunch franka_interactive_controllers franka_interactive_bringup.launch
+```
+6. Luanch the Cartesian Impedance Controller:
+```
+roslaunch franka_interactive_controllers franka_interactive_bringup.launch controller:=cartesian_pose_impedance
+```
 
-## Results
+7. To showcase the effectiveness of the project, we want to do a simple experiment of moving the Franka to different joint configurations and see how we calculate SDFs in real-time. To move the robot to the different joint configurations using * = 1,2,3 ... 
+```
+rosrun franka_interactive_controllers libfranka_joint_goal_motion_generator *
+```
+
+Please refer to the famous Franka interactive controllers library by Prof. Nadia Figueroa : [franka_interactive_controllers](https://github.com/nbfigueroa/franka_interactive_controllers/tree/main#cartesian-impedance-controller-with-pose-command) for detailed reference.
+
+
+
+3. **Slave PC with GPU**:
+1. Use the "catkin_ws" inside "Franka_SDF_catkin_ws_GPU" for the Slave PC:
+``` 
+cd ~/catkin_ws
+source devel/setup.bash
+catkin_make
+```
+2. Setup ROS communication:
+```
+export ROS_MASTER_URI=http://"master pc ip":11311
+export ROS_IP="slave pc IP"
+```
+
+3. Run a real-time SDF generator inspired by [isdf](https://github.com/facebookresearch/iSDF/tree/main):
+```
+roslaunch sdf train_franka.launch
+```
+## Sample Results
 
 ### Videos
 
-Embed or link to your result videos here:
+Sample Demo
+[![Video Demo]()](https://example.com/your-video.mkv)
 
-<iframe width="560" height="315" src="[YouTube/Vimeo Video Link]" frameborder="0" allowfullscreen></iframe>
 
-### Franka Image
-
-![Franka Robot](path/to/franka/image.jpg)
-
-## License
-
-This project is licensed under the [License Name] - see the [LICENSE.md](LICENSE.md) file for details.
 
 ## Acknowledgments
 
