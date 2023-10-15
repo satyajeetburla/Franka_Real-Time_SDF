@@ -121,7 +121,7 @@ roslaunch sdf train_franka.launch
 ### Videos
 
 Sample Demo
-[![Video Demo](https://github.com/satyajeetburla/Franka_Real-Time_SDF/blob/main/%231.mkv)]
+[!(https://github.com/satyajeetburla/Franka_Real-Time_SDF/blob/main/%231.mkv)]
 
 
 
